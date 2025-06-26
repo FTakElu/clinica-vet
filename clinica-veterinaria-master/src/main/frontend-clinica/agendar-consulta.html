@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Consulta - Clínica Pet</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<header>
+    <nav>
+        <h1>Clínica Pet</h1>
+        <ul>
+            <li><a href="#" id="welcomeMessage"></a></li>
+            <li><a href="cliente-dashboard.html">Dashboard</a></li>
+            <li><a href="#" id="logoutBtn">Sair</a></li>
+        </ul>
+    </nav>
+</header>
+<div class="container">
+    <h2>Agendar Nova Consulta</h2>
+
+    <section class="dashboard-section">
+        <form id="scheduleAppointmentForm">
+            <div class="form-group">
+                <label for="petSelect">Selecione o Pet:</label>
+                <select id="petSelect" name="petId" required>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="veterinarioSelect">Selecione o Veterinário:</label>
+                <select id="veterinarioSelect" name="veterinarioId" required>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="dataConsulta">Data da Consulta:</label>
+                <input type="date" id="dataConsulta" name="dataConsulta" required>
+            </div>
+            <div class="form-group">
+                <label for="horaConsulta">Hora da Consulta:</label>
+                <input type="time" id="horaConsulta" name="horaConsulta" required>
+            </div>
+            <div class="form-group">
+                <label for="motivoConsulta">Motivo da Consulta:</label>
+                <textarea id="motivoConsulta" name="motivo" rows="4"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Agendar</button>
+            <div id="scheduleMessage" class="message"></div>
+        </form>
+    </section>
+
+</div>
+<script type="module" src="./js/auth.js"></script>
+<script type="module" src="./js/script.js"></script>
+<script type="module" src="./js/agendarConsulta.js"></script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Clínica Pet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Define a fonte Inter para todo o corpo */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilos personalizados para o mapa no footer (para consistência) */
+        .map-container iframe {
+            width: 100%;
+            height: 450px; /* Altura padrão para desktop */
+            border-radius: 0.5rem; /* Bordas arredondadas para o mapa */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        }
+
+        /* Responsividade para o iframe do mapa em telas menores */
+        @media (max-width: 768px) {
+            .map-container iframe {
+                height: 300px; /* Altura menor para mobile */
+            }
+        }
+    </style>
+</head>
+<body class="bg-purple-50 text-gray-800 antialiased min-h-screen flex flex-col">
+
+<header class="bg-purple-800 text-white p-4 shadow-lg rounded-b-xl">
+    <nav class="container mx-auto flex justify-between items-center px-4">
+        <a href="index.html" class="text-3xl sm:text-4xl font-extrabold tracking-tight hover:text-purple-200 transition-colors duration-300">Clínica Pet</a>
+
+        <ul class="hidden md:flex space-x-6 items-center">
+            <li><a href="index.html" class="text-lg font-medium hover:text-purple-200 transition-colors duration-300 rounded-lg px-3 py-2">Home</a></li>
+            <li><a href="servicos.html" class="text-lg font-medium hover:text-purple-200 transition-colors duration-300 rounded-lg px-3 py-2">Serviços</a></li>
+            <li><a href="noticias.html" class="text-lg font-medium hover:text-purple-200 transition-colors duration-300 rounded-lg px-3 py-2">Notícias</a></li>
+            <li><a href="contato.html" class="text-lg font-medium text-purple-200 border-b-2 border-purple-200 pb-1">Contato</a></li> <li>
+            <a href="login.html" class="btn-login bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full shadow-md transition-all duration-300 transform hover:scale-105">
+                Login
+            </a>
+        </li>
+        </ul>
+
+        <div class="md:hidden">
+            <button id="mobile-menu-button" class="text-white focus:outline-none p-2 rounded-md hover:bg-purple-700 transition-colors duration-300">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="md:hidden mt-4 hidden">
+        <ul class="flex flex-col space-y-2 px-4 py-3 bg-purple-700 rounded-lg shadow-inner">
+            <li><a href="index.html" class="block py-2 px-3 text-lg font-medium hover:bg-purple-600 rounded-md transition-colors duration-300">Home</a></li>
+            <li><a href="servicos.html" class="block py-2 px-3 text-lg font-medium hover:bg-purple-600 rounded-md transition-colors duration-300">Serviços</a></li>
+            <li><a href="noticias.html" class="block py-2 px-3 text-lg font-medium hover:bg-purple-600 rounded-md transition-colors duration-300">Notícias</a></li>
+            <li><a href="contato.html" class="block py-2 px-3 text-lg font-medium bg-purple-600 rounded-md">Contato</a></li> <li>
+            <a href="login.html" class="block text-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-3 rounded-full shadow-md transition-colors duration-300 mt-2">
+                Login
+            </a>
+        </li>
+        </ul>
+    </div>
+</header>
+
+<main class="flex-grow py-16 md:py-24 bg-purple-50">
+    <div class="container mx-auto px-4 max-w-2xl text-center">
+        <h2 class="text-4xl md:text-5xl font-extrabold text-purple-800 mb-8 leading-tight">Fale Conosco</h2>
+        <p class="text-lg text-gray-700 mb-12">Estamos prontos para atender você e seu pet! Entre em contato pelos canais abaixo:</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center justify-center hover:shadow-xl transition-shadow duration-300">
+                <i class="fas fa-phone-alt text-purple-600 text-5xl mb-4"></i>
+                <h3 class="text-2xl font-bold text-purple-700 mb-2">Telefone</h3>
+                <a href="tel:+551186976403" class="text-xl text-gray-700 hover:text-purple-600 transition-colors duration-300">(11) 8697-6403</a>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center justify-center hover:shadow-xl transition-shadow duration-300">
+                <i class="fas fa-envelope text-purple-600 text-5xl mb-4"></i>
+                <h3 class="text-2xl font-bold text-purple-700 mb-2">E-mail</h3>
+                <a href="mailto:contato@clinica-pet.com" class="text-xl text-gray-700 hover:text-purple-600 transition-colors duration-300">contato@clinica-pet.com</a>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center justify-center hover:shadow-xl transition-shadow duration-300 md:col-span-2">
+                <i class="fas fa-map-marker-alt text-purple-600 text-5xl mb-4"></i>
+                <h3 class="text-2xl font-bold text-purple-700 mb-2">Endereço</h3>
+                <p class="text-xl text-gray-700 text-center">Av. dos Três Poderes, 375<br>Residencial Central Parque, Salto - SP<br>CEP 13325-047</p>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer class="footer bg-gray-900 text-white py-12 md:py-16 mt-auto rounded-t-xl shadow-inner">
+    <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+        <div class="footer-section contact-info">
+            <h3 class="text-2xl font-semibold text-purple-300 mb-4">Contato</h3>
+            <p class="text-gray-300 mb-2">Telefone: <a href="tel:+551186976403" class="hover:underline">(11) 8697-6403</a></p>
+            <p class="text-gray-300">Email: <a href="mailto:contato@clinica-pet.com" class="hover:underline">contato@clinica-pet.com</a></p>
+        </div>
+        <div class="footer-section address-info">
+            <h3 class="text-2xl font-semibold text-purple-300 mb-4">Endereço</h3>
+            <p class="text-gray-300">Av. dos Três Poderes, 375</p>
+            <p class="text-gray-300">Residencial Central Parque, Salto - SP</p>
+            <p class="text-gray-300">CEP 13325-047</p>
+        </div>
+        <div class="footer-section opening-hours">
+            <h3 class="text-2xl font-semibold text-purple-300 mb-4">Horário de Atendimento</h3>
+            <p class="text-gray-300">Segunda a Sexta: 08:00 - 18:00</p>
+            <p class="text-gray-300">Sábados: Apenas com horário agendado</p>
+        </div>
+        <div class="footer-section social-media">
+            <h3 class="text-2xl font-semibold text-purple-300 mb-4">Siga-nos</h3>
+            <a href="https://www.instagram.com/suaclinicapet" target="_blank" class="text-gray-300 hover:text-purple-400 transition-colors duration-300 text-lg flex items-center">
+                <i class="fab fa-instagram mr-2 text-2xl"></i> Instagram
+            </a>
+        </div>
+    </div>
+
+    <div class="map-container container mx-auto px-4 mt-12">
+        <h3 class="text-2xl font-semibold text-purple-300 mb-4 text-center">Localização</h3>
+        <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3667.5552438777454!2d-47.30521532552402!3d-23.186427279059274!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cf53972da3336f%3A0xceb3df208b4b53a4!2sInstituto%20Federal%20de%20Educa%C3%A7%C3%A3o%2C%20Ci%C3%AAncia%20e%20Tecnologia%20de%20S%C3%A3o%20Paulo%2C%20Campus%20Salto!5e0!3m2!1spt-BR!2sbr!4v1750912675825!5m2!1spt-BR!2sbr"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+
+    <div class="copyright text-center text-gray-500 text-sm mt-8">
+        <p>© 2025 Clínica Pet. Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+<a href="https://wa.me/551186976403" class="whatsapp-float fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg text-3xl flex items-center justify-center transition-all duration-300 transform hover:scale-110 z-50" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    });
+</script>
+</body>
+</html>

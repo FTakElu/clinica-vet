@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Vacina Aplicada - Clínica Pet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Define a fonte Inter para todo o corpo, para consistência */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-purple-50 text-gray-800 antialiased min-h-screen flex flex-col">
+
+<header class="bg-purple-800 text-white p-4 shadow-lg rounded-b-xl">
+    <nav class="container mx-auto flex justify-between items-center px-4">
+        <a href="index.html" class="text-3xl sm:text-4xl font-extrabold tracking-tight hover:text-purple-200 transition-colors duration-300">Clínica Pet</a>
+        <ul class="flex items-center space-x-6">
+            <li><span id="welcomeMessage" class="text-lg font-medium text-purple-200"></span></li>
+            <li>
+                <a href="secretario-dashboard.html" id="dashboardLink" class="text-lg font-medium hover:text-purple-200 transition-colors duration-300 py-2 px-4 rounded-full">Dashboard</a>
+            </li>
+            <li>
+                <button id="logoutBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full shadow-md transition-all duration-300 transform hover:scale-105">
+                    Sair
+                </button>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main class="flex-grow py-16 md:py-24 bg-purple-50">
+    <div class="container mx-auto px-4 max-w-2xl">
+        <h2 class="text-4xl md:text-5xl font-extrabold text-center text-purple-800 mb-8 leading-tight">Registrar Vacina Aplicada</h2>
+
+        <section class="bg-white p-8 rounded-xl shadow-lg">
+            <form id="registerVaccineForm" class="space-y-6">
+                <div class="form-group">
+                    <label for="regVacinaPet" class="block text-gray-700 text-lg font-medium mb-2">Pet:</label>
+                    <select id="regVacinaPet" name="petId" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white text-lg">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="regVacinaTipo" class="block text-gray-700 text-lg font-medium mb-2">Tipo de Vacina:</label>
+                    <select id="regVacinaTipo" name="tipoVacinaId" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white text-lg">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="regVacinaData" class="block text-gray-700 text-lg font-medium mb-2">Data da Aplicação:</label>
+                    <input type="date" id="regVacinaData" name="dataAplicacao" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-lg">
+                </div>
+                <div class="form-group" id="veterinarioSelectGroup">
+                    <label for="regVacinaVeterinario" class="block text-gray-700 text-lg font-medium mb-2">Veterinário (Opcional):</label>
+                    <select id="regVacinaVeterinario" name="veterinarioId"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white text-lg">
+                    </select>
+                    <small class="text-gray-500 text-sm mt-1 block">Selecione o veterinário que aplicou a vacina. Se você for um veterinário, seu nome será preenchido automaticamente.</small>
+                </div>
+                <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full shadow-md transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-lg">
+                    Registrar Vacina
+                </button>
+                <div id="regVacinaMessage" class="message text-center mt-4 text-red-600 font-medium text-base"></div>
+            </form>
+        </section>
+    </div>
+</main>
+
+<footer class="footer bg-gray-900 text-white py-12 md:py-16 mt-auto rounded-t-xl shadow-inner">
+    <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+        <div class="footer-section contact-info">
+            <h3 class="text-2xl font-semibold text-purple-300 mb-4">Contato</h3>
+            <p class="text-gray-300 mb-2">Telefone: <a href="tel:+551186976403" class="hover:underline">(11) 8697-6403</a></p>
+            <p class="text-gray-300">Email: <a href="mailto:contato@clinica-pet.com" class="hover:underline">contato@clinica-pet.com</a></p>
+        </div>
+        <div class="footer-section address-info">
+            <h3 class="text-2xl font-semibold text-purple-300 mb-4">Endereço</h3>
+            <p class="text-gray-300">Av. dos Três Poderes, 375</p>
+            <p class="text-gray-300">Residencial Central Parque, Salto - SP</p>
+            <p class="text-gray-300">CEP 13325-047</p>
+        </div>
+        <div class="footer-section opening-hours">
+            <h3 class="text-2xl font-semibold text-purple-300 mb-4">Horário de Atendimento</h3>
+            <p class="text-gray-300">Segunda a Sexta: 08:00 - 18:00</p>
+            <p class="text-gray-300">Sábados: Apenas com horário agendado</p>
+        </div>
+        <div class="footer-section social-media">
+            <h3 class="text-2xl font-semibold text-purple-300 mb-4">Siga-nos</h3>
+            <a href="https://www.instagram.com/suaclinicapet" target="_blank" class="text-gray-300 hover:text-purple-400 transition-colors duration-300 text-lg flex items-center">
+                <i class="fab fa-instagram mr-2 text-2xl"></i> Instagram
+            </a>
+        </div>
+    </div>
+
+    <div class="map-container container mx-auto px-4 mt-12">
+        <h3 class="text-2xl font-semibold text-purple-300 mb-4 text-center">Localização</h3>
+        <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3667.5552438777454!2d-47.30521532552402!3d-23.186427279059274!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cf53972da3336f%3A0xceb3df208b4b53a4!2sInstituto%20Federal%20de%20Educa%C3%A7%C3%A3o%2C%20Ci%C3%AAncia%20e%20Tecnologia%20de%20S%C3%A3o%20Paulo%2C%20Campus%20Salto!5e0!3m2!1spt-BR!2sbr!4v1750912675825!5m2!1spt-BR!2sbr"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+
+    <div class="copyright text-center text-gray-500 text-sm mt-8">
+        <p>© 2025 Clínica Pet. Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+<a href="https://wa.me/551186976403" class="whatsapp-float fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg text-3xl flex items-center justify-center transition-all duration-300 transform hover:scale-110 z-50" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<script src="./js/script.js"></script>
+<script src="js/api.js"></script>
+<script src="js/common.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/registrarVacina.js"></script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciar Consultas - Secretário - Clínica Pet</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Define a fonte Inter para todo o corpo, para consistência */
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    /* Estilos para o modal, copiados do dashboard do veterinário */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1000; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        align-items: center;
+        justify-content: center;
+        padding: 1rem; /* Adicionado para evitar que o modal toque as bordas em telas pequenas */
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto; /* Centraliza o modal horizontalmente */
+        padding: 3rem;
+        border-radius: 1rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        position: relative;
+        width: 90%; /* Usa 90% da largura do pai */
+        max-width: 600px; /* Limita a largura máxima */
+        transform: translateY(0); /* Garante posição inicial para transições */
+    }
+
+    .close-button {
+        color: #aaa;
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+        font-size: 2.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+    .close-button:hover,
+    .close-button:focus {
+        color: #888;
+        text-decoration: none;
+        cursor: pointer;
+    }
+  </style>
+</head>
+<body class="bg-purple-50 text-gray-800 antialiased min-h-screen flex flex-col">
+
+<header class="bg-purple-800 text-white p-4 shadow-lg rounded-b-xl">
+  <nav class="container mx-auto flex justify-between items-center px-4">
+    <a href="index.html" class="text-3xl sm:text-4xl font-extrabold tracking-tight hover:text-purple-200 transition-colors duration-300">Clínica Pet</a>
+
+    <ul class="flex items-center space-x-6">
+      <li><span id="welcomeMessage" class="text-lg font-medium text-purple-200"></span></li>
+      <li>
+        <a href="secretario-dashboard.html" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full shadow-md transition-all duration-300 transform hover:scale-105">
+          <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+        </a>
+      </li>
+      <li>
+        <button id="logoutBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full shadow-md transition-all duration-300 transform hover:scale-105">
+          Sair
+        </button>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<main class="flex-grow py-16 md:py-24 bg-purple-50">
+  <div class="container mx-auto px-4 max-w-5xl">
+    <h2 class="text-4xl md:text-5xl font-extrabold text-center text-purple-800 mb-8 leading-tight">Gerenciar Consultas</h2>
+
+    <section id="gerenciar-consultas-section" class="bg-white p-8 rounded-xl shadow-lg mb-12">
+      <h3 class="text-3xl font-bold text-purple-700 mb-6">Consultas Agendadas e Realizadas</h3>
+
+      <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full shadow-md transition-all duration-300 transform hover:scale-105 inline-flex items-center mb-6" id="addConsultaBtn">
+        <i class="fas fa-calendar-plus mr-2"></i>Agendar Nova Consulta
+      </button>
+
+      <h4 class="text-2xl font-bold text-gray-700 mb-4">Lista de Consultas</h4>
+      <input type="text" id="consultaSearch" placeholder="Buscar consulta por pet/dono/veterinário..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 mb-6">
+
+      <div id="consultaList" class="bg-gray-50 p-6 rounded-lg border border-gray-200 min-h-[150px]">
+        <p class="text-gray-600 text-lg">Nenhuma consulta agendada.</p>
+      </div>
+    </section>
+
+    <div id="consultaModal" class="modal flex items-center justify-center">
+      <div class="modal-content">
+        <span class="close-button">×</span>
+        <h3 id="consultaModalTitle" class="text-3xl font-bold text-purple-700 mb-6"></h3>
+        <form id="consultaForm" class="space-y-4">
+          <input type="hidden" id="consultaIdHidden">
+
+          <div class="form-group">
+            <label for="consultaPetId" class="block text-gray-700 text-sm font-bold mb-2">Pet:</label>
+            <select id="consultaPetId" name="petId" required class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-purple-500">
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="consultaDonoInfo" class="block text-gray-700 text-sm font-bold mb-2">Dono (Cliente):</label>
+            <input type="text" id="consultaDonoInfo" disabled class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 bg-gray-100 cursor-not-allowed leading-tight focus:outline-none focus:shadow-outline">
+          </div>
+
+          <div class="form-group">
+            <label for="consultaVeterinarioId" class="block text-gray-700 text-sm font-bold mb-2">Veterinário:</label>
+            <select id="consultaVeterinarioId" name="veterinarioId" required class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-purple-500">
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="consultaData" class="block text-gray-700 text-sm font-bold mb-2">Data:</label>
+            <input type="date" id="consultaData" name="data" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-purple-500">
+          </div>
+
+          <div class="form-group">
+            <label for="consultaHora" class="block text-gray-700 text-sm font-bold mb-2">Hora:</label>
+            <input type="time" id="consultaHora" name="hora" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-purple-500">
+          </div>
+
+          <div class="form-group">
+            <label for="consultaMotivo" class="block text-gray-700 text-sm font-bold mb-2">Motivo:</label>
+            <textarea id="consultaMotivo" name="motivo" rows="3" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-purple-500"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="consultaStatus" class="block text-gray-700 text-sm font-bold mb-2">Status:</label>
+            <select id="consultaStatus" name="status" required class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-purple-500">
+              <option value="Agendada">Agendada</option>
+              <option value="Confirmada">Confirmada</option>
+              <option value="Cancelada">Cancelada</option>
+              <option value="Concluída">Concluída</option>
+              <option value="Em Andamento">Em Andamento</option>
+            </select>
+          </div>
+
+          <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full shadow-md transition-all duration-300 transform hover:scale-105 w-full flex items-center justify-center">
+            <i class="fas fa-save mr-2"></i>Salvar Consulta
+          </button>
+          <div id="consultaMessage" class="message text-center text-sm mt-4"></div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="footer bg-gray-900 text-white py-12 md:py-16 mt-auto rounded-t-xl shadow-inner">
+  <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+    <div class="footer-section contact-info">
+      <h3 class="text-2xl font-semibold text-purple-300 mb-4">Contato</h3>
+      <p class="text-gray-300 mb-2">Telefone: <a href="tel:+551186976403" class="hover:underline">(11) 8697-6403</a></p>
+      <p class="text-gray-300">Email: <a href="mailto:contato@clinica-pet.com" class="hover:underline">contato@clinica-pet.com</a></p>
+    </div>
+    <div class="footer-section address-info">
+      <h3 class="text-2xl font-semibold text-purple-300 mb-4">Endereço</h3>
+      <p class="text-gray-300">Av. dos Três Poderes, 375</p>
+      <p class="text-gray-300">Residencial Central Parque, Salto - SP</p>
+      <p class="text-gray-300">CEP 13325-047</p>
+    </div>
+    <div class="footer-section opening-hours">
+      <h3 class="text-2xl font-semibold text-purple-300 mb-4">Horário de Atendimento</h3>
+      <p class="text-gray-300">Segunda a Sexta: 08:00 - 18:00</p>
+      <p class="text-gray-300">Sábados: Apenas com horário agendado</p>
+    </div>
+    <div class="footer-section social-media">
+      <h3 class="text-2xl font-semibold text-purple-300 mb-4">Siga-nos</h3>
+      <a href="https://www.instagram.com/suaclinicapet" target="_blank" class="text-gray-300 hover:text-purple-400 transition-colors duration-300 text-lg flex items-center">
+        <i class="fab fa-instagram mr-2 text-2xl"></i> Instagram
+      </a>
+    </div>
+  </div>
+
+  <div class="map-container container mx-auto px-4 mt-12">
+    <h3 class="text-2xl font-semibold text-purple-300 mb-4 text-center">Localização</h3>
+    <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3667.5552438777454!2d-47.30521532552402!3d-23.186427279059274!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cf53972da3336f%3A0xceb3df208b4b53a4!2sInstituto%20Federal%20de%20Educa%C3%A7%C3%A3o%2C%20Ci%C3%AAncia%20e%20Tecnologia%20de%20S%C3%A3o%20Paulo%2C%20Campus%20Salto!5e0!3m2!1spt-BR!2sbr!4v1750912675825!5m2!1spt-BR!2sbr"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+
+  <div class="copyright text-center text-gray-500 text-sm mt-8">
+    <p>© 2025 Clínica Pet. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<a href="https://wa.me/551186976403" class="whatsapp-float fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg text-3xl flex items-center justify-center transition-all duration-300 transform hover:scale-110 z-50" target="_blank">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<script type="module" src="./js/auth.js"></script>
+<script type="module" src="./js/script.js"></script>
+<script type="module" src="./js/gerenciarConsultas.js"></script>
+</body>
+</html>

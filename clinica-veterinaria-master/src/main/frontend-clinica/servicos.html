@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços - Clínica Pet</title>
+    <!-- Inclui Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inclui Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Define a fonte Inter para todo o corpo */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilos personalizados para o mapa no footer (para consistência) */
+        .map-container iframe {
+            width: 100%;
+            height: 450px; /* Altura padrão para desktop */
+            border-radius: 0.5rem; /* Bordas arredondadas para o mapa */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        }
+
+        /* Responsividade para o iframe do mapa em telas menores */
+        @media (max-width: 768px) {
+            .map-container iframe {
+                height: 300px; /* Altura menor para mobile */
+            }
+        }
+    </style>
+</head>
+<body class="bg-purple-50 text-gray-800 antialiased min-h-screen flex flex-col">
+
+<!-- Seção do Cabeçalho (Header) - Reutilizada do index.html para consistência -->
+<header class="bg-purple-800 text-white p-4 shadow-lg rounded-b-xl">
+    <nav class="container mx-auto flex justify-between items-center px-4">
+        <!-- Logo ou Nome da Clínica -->
+        <a href="index.html" class="text-3xl sm:text-4xl font-extrabold tracking-tight hover:text-purple-200 transition-colors duration-300">Clínica Pet</a>
+
+        <!-- Menu de Navegação (Desktop) -->
+        <ul class="hidden md:flex space-x-6 items-center">
+            <li><a href="index.html" class="text-lg font-medium hover:text-purple-200 transition-colors duration-300 rounded-lg px-3 py-2">Home</a></li>
+            <li><a href="servicos.html" class="text-lg font-medium text-purple-200 border-b-2 border-purple-200 pb-1">Serviços</a></li> <!-- Destaque para a página atual -->
+            <li><a href="noticias.html" class="text-lg font-medium hover:text-purple-200 transition-colors duration-300 rounded-lg px-3 py-2">Notícias</a></li>
+            <li><a href="contato.html" class="text-lg font-medium hover:text-purple-200 transition-colors duration-300 rounded-lg px-3 py-2">Contato</a></li>
+            <li>
+                <a href="login.html" class="btn-login bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full shadow-md transition-all duration-300 transform hover:scale-105">
+                    Login
+                </a>
+            </li>
+        </ul>
+
+        <!-- Botão do Menu Hamburguer (Mobile) -->
+        <div class="md:hidden">
+            <button id="mobile-menu-button" class="text-white focus:outline-none p-2 rounded-md hover:bg-purple-700 transition-colors duration-300">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Menu Mobile (oculto por padrão, será exibido via JS) -->
+    <div id="mobile-menu" class="md:hidden mt-4 hidden">
+        <ul class="flex flex-col space-y-2 px-4 py-3 bg-purple-700 rounded-lg shadow-inner">
+            <li><a href="index.html" class="block py-2 px-3 text-lg font-medium hover:bg-purple-600 rounded-md transition-colors duration-300">Home</a></li>
+            <li><a href="servicos.html" class="block py-2 px-3 text-lg font-medium bg-purple-600 rounded-md">Serviços</a></li> <!-- Destaque para a página atual -->
+            <li><a href="noticias.html" class="block py-2 px-3 text-lg font-medium hover:bg-purple-600 rounded-md transition-colors duration-300">Notícias</a></li>
+            <li><a href="contato.html" class="block py-2 px-3 text-lg font-medium hover:bg-purple-600 rounded-md transition-colors duration-300">Contato</a></li>
+            <li>
+                <a href="login.html" class="block text-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-3 rounded-full shadow-md transition-colors duration-300 mt-2">
+                    Login
+                </a>
+            </li>
+        </ul>
+    </div>
+</header>
+
+<!-- Conteúdo Principal da Página de Serviços -->
+<main class="flex-grow py-16 md:py-24">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <h2 class="text-4xl md:text-5xl font-extrabold text-center text-purple-800 mb-6 leading-tight">Nossos Serviços Completos</h2>
+        <p class="text-xl md:text-2xl text-center text-gray-700 mb-12 max-w-3xl mx-auto">Conheça a variedade de serviços que oferecemos para a saúde e bem-estar do seu pet, com a qualidade e o carinho que ele merece.</p>
+
+        <!-- Categoria: Serviços de Saúde e Bem-Estar -->
+        <div class="mb-16">
+            <h3 class="text-3xl font-bold text-purple-700 mb-8 text-center md:text-left">Serviços Essenciais</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card: Cirurgias -->
+                <div class="card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                    <!-- Substitua 'assets/images/cirurgias.jpg' pela sua imagem real -->
+                    <img src="https://placehold.co/600x400/8B5CF6/FFFFFF?text=Cirurgias" alt="Cirurgias Veterinárias" class="w-full h-48 object-cover rounded-md mb-4 shadow-sm">
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-3">Cirurgias</h3>
+                    <p class="text-gray-600">Realizamos cirurgias com segurança e equipamentos modernos para garantir a melhor recuperação do seu animal.</p>
+                </div>
+                <!-- Card: Exames de Imagem -->
+                <div class="card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                    <!-- Substitua 'assets/images/exames.jpg' pela sua imagem real -->
+                    <img src="https://placehold.co/600x400/A78BFA/FFFFFF?text=Exames+de+Imagem" alt="Exames de Imagem" class="w-full h-48 object-cover rounded-md mb-4 shadow-sm">
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-3">Exames de Imagem</h3>
+                    <p class="text-gray-600">Dispomos de raio-x, ultrassonografia e outros exames para diagnósticos precisos e rápidos.</p>
+                </div>
+                <!-- Card: Internação -->
+                <div class="card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+                    <!-- Substitua 'assets/images/internacao.jpg' pela sua imagem real -->
+                    <img src="https://placehold.co/600x400/C4B5FD/FFFFFF?text=Internação" alt="Internação Veterinária" class="w-full h-48 object-cover rounded-md mb-4 shadow-sm">
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-3">Internação</h3>
+                    <p class="text-gray-600">Ambiente seguro e climatizado com monitoramento 24h para pets que precisam de cuidados intensivos.</p>
+                </div>
+                <!-- Card: Vacinação -->
+                <div class="card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center">
+                    <i class="fas fa-syringe text-6xl text-purple-600 mb-4"></i>
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-3">Vacinação</h3>
+                    <p class="text-gray-600">Protocolos de vacinação personalizados para proteger seu pet contra diversas doenças.</p>
+                </div>
+                <!-- Card: Consultas -->
+                <div class="card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center">
+                    <i class="fas fa-stethoscope text-6xl text-purple-600 mb-4"></i>
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-3">Consultas</h3>
+                    <p class="text-gray-600">Consultas de rotina, especializadas e de emergência para manter a saúde do seu pet em dia.</p>
+                </div>
+                <!-- Card: Adestramento -->
+                <div class="card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 flex flex-col items-center text-center">
+                    <i class="fas fa-dog text-6xl text-purple-600 mb-4"></i>
+                    <h3 class="text-2xl font-semibold text-purple-700 mb-3">Adestramento</h3>
+                    <p class="text-gray-600">Serviços de adestramento para melhorar o comportamento e a obediência do seu pet.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categoria: Especialidades Veterinárias - Reutilizada do index.html -->
+        <div class="mb-16">
+            <h3 class="text-3xl font-bold text-purple-700 mb-8 text-center md:text-left">Nossas Especialidades</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+                <div class="specialty-item bg-purple-100 p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow duration-300 transform hover:scale-105">
+                    <i class="fas fa-cat text-5xl text-purple-600 mb-3"></i>
+                    <h3 class="text-xl font-semibold text-gray-800">Medicina Felina</h3>
+                </div>
+                <div class="specialty-item bg-purple-100 p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow duration-300 transform hover:scale-105">
+                    <i class="fas fa-cut text-5xl text-purple-600 mb-3"></i>
+                    <h3 class="text-xl font-semibold text-gray-800">Cirurgia Veterinária</h3>
+                </div>
+                <div class="specialty-item bg-purple-100 p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow duration-300 transform hover:scale-105">
+                    <i class="fas fa-tooth text-5xl text-purple-600 mb-3"></i>
+                    <h3 class="text-xl font-semibold text-gray-800">Odontologia Veterinária</h3>
+                </div>
+                <div class="specialty-item bg-purple-100 p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow duration-300 transform hover:scale-105">
+                    <i class="fas fa-paw text-5xl text-purple-600 mb-3"></i>
+                    <h3 class="text-xl font-semibold text-gray-800">Dermatologia Veterinária</h3>
+                </div>
+                <div class="specialty-item bg-purple-100 p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow duration-300 transform hover:scale-105">
+                    <i class="fas fa-eye text-5xl text-purple-600 mb-3"></i>
+                    <h3 class="text-xl font-semibold text-gray-800">Oftalmologia Veterinária</h3>
+                </div>
+                <div class="specialty-item bg-purple-100 p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow duration-300 transform hover:scale-105">
+                    <i class="fas fa-bone text-5xl text-purple-600 mb-3"></i>
+                    <h3 class="text-xl font-semibold text-gray-800">Ortopedia Veterinária</h3>
+                </div>
+                <div class="specialty-item bg-purple-100 p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow duration-300 transform hover:scale-105">
+                    <i class="fas fa-syringe text-5xl text-purple-600 mb-3"></i>
+                    <h3 class="text-xl font-semibold text-gray-800">Acupuntura Veterinária</h3>
+                </div>
+                <div class="specialty-item bg-purple-100 p-6 rounded-xl shadow-md text-center hover:shadow-lg transition-shadow duration-300 transform hover:scale-105">
+                    <i class="fas fa-dog text-5xl text-purple-600 mb-3"></i>
+                    <h3 class="text-xl font-semibold text-gray-800">Fisioterapia Veterinária</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Seção do Rodapé (Footer) - Reutilizada do index.html para consistência -->
+<footer class="footer bg-gray-900 text-white py-12 md:py-16 mt-auto rounded-t-xl shadow-inner">
+    <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+        <!-- Seção de Contato -->
+        <div class="footer-section contact-info">
+            <h3 class="text-2xl font-semibold text-purple-300 mb-4">Contato</h3>
+            <p class="text-gray-300 mb-2">Telefone: <a href="tel:+551186976403" class="hover:underline">(11) 8697-6403</a></p>
+            <p class="text-gray-300">Email: <a href="mailto:contato@clinica-pet.com" class="hover:underline">contato@clinica-pet.com</a></p>
+        </div>
+        <!-- Seção de Endereço -->
+        <div class="footer-section address-info">
+            <h3 class="text-2xl font-semibold text-purple-300 mb-4">Endereço</h3>
+            <p class="text-gray-300">Av. dos Três Poderes, 375</p>
+            <p class="text-gray-300">Residencial Central Parque, Salto - SP</p>
+            <p class="text-gray-300">CEP 13325-047</p>
+        </div>
+        <!-- Seção de Horário de Atendimento -->
+        <div class="footer-section opening-hours">
+            <h3 class="text-2xl font-semibold text-purple-300 mb-4">Horário de Atendimento</h3>
+            <p class="text-gray-300">Segunda a Sexta: 08:00 - 18:00</p>
+            <p class="text-gray-300">Sábados: Apenas com horário agendado</p>
+        </div>
+        <!-- Seção de Mídias Sociais -->
+        <div class="footer-section social-media">
+            <h3 class="text-2xl font-semibold text-purple-300 mb-4">Siga-nos</h3>
+            <a href="https://www.instagram.com/suaclinicapet" target="_blank" class="text-gray-300 hover:text-purple-400 transition-colors duration-300 text-lg flex items-center">
+                <i class="fab fa-instagram mr-2 text-2xl"></i> Instagram
+            </a>
+        </div>
+    </div>
+
+    <!-- Seção do Mapa -->
+    <div class="map-container container mx-auto px-4 mt-12">
+        <h3 class="text-2xl font-semibold text-purple-300 mb-4 text-center">Localização</h3>
+        <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3667.5552438777454!2d-47.30521532552402!3d-23.186427279059274!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cf53972da3336f%3A0xceb3df208b4b53a4!2sInstituto%20Federal%20de%20Educa%C3%A7%C3%A3o%2C%20Ci%C3%AAncia%20e%20Tecnologia%20de%20S%C3%A3o%20Paulo%2C%20Campus%20Salto!5e0!3m2!1spt-BR!2sbr!4v1750912675825!5m2!1spt-BR!2sbr"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+
+    <!-- Copyright -->
+    <div class="copyright text-center text-gray-500 text-sm mt-8">
+        <p>&copy; 2025 Clínica Pet. Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+<!-- Botão flutuante do WhatsApp -->
+<a href="https://wa.me/551186976403" class="whatsapp-float fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg text-3xl flex items-center justify-center transition-all duration-300 transform hover:scale-110 z-50" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- Script para o menu mobile -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    });
+</script>
+</body>
+</html>

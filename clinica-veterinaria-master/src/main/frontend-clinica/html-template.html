@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Veterinária - [Nome da Página]</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1>Clínica Veterinária Pet Feliz</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="servicos.html">Serviços</a></li>
+                <li><a href="noticias.html">Notícias</a></li>
+                <li><a href="contato.html">Contato</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li id="navDashboardLink" style="display:none;"><a href="#" id="dashboardLink">Dashboard</a></li>
+                <li id="navLogoutLink" style="display:none;"><a href="#" id="logoutButton">Sair</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2025 Clínica Veterinária Pet Feliz. Todos os direitos reservados.</p>
+        <p>Avenida dos Três Poderes, 75, Salto, SP - Instituto Federal de São Paulo Campus Salto</p>
+    </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/common.js"></script>
+<script>
+    // Lógica simples para mostrar/esconder links de dashboard e logout
+    document.addEventListener('DOMContentLoaded', () => {
+        const token = localStorage.getItem('jwt_token');
+        const role = localStorage.getItem('user_role');
+        const dashboardLink = document.getElementById('navDashboardLink');
+        const logoutLink = document.getElementById('navLogoutLink');
+        const dashboardAnchor = document.getElementById('dashboardLink');
+        const logoutButton = document.getElementById('logoutButton');
+
+        if (token && role) {
+            if (dashboardLink && logoutLink) {
+                dashboardLink.style.display = 'inline';
+                logoutLink.style.display = 'inline';
+                if (dashboardAnchor) {
+                    switch (role) {
+                        case 'CLIENTE':
+                            dashboardAnchor.href = 'cliente-dashboard.html';
+                            break;
+                        case 'SECRETARIO':
+                            dashboardAnchor.href = 'secretario-dashboard.html';
+                            break;
+                        case 'VETERINARIO':
+                            dashboardAnchor.href = 'veterinario-dashboard.html';
+                            break;
+                        default:
+                            dashboardLink.style.display = 'none'; // Esconde se a role não for reconhecida
+                            break;
+                    }
+                }
+            }
+        } else {
+            if (dashboardLink && logoutLink) {
+                dashboardLink.style.display = 'none';
+                logoutLink.style.display = 'none';
+            }
+        }
+
+        if (logoutButton) {
+            logoutButton.addEventListener('click', () => {
+                localStorage.removeItem('jwt_token');
+                localStorage.removeItem('user_role');
+                window.location.href = 'index.html';
+            });
+        }
+    });
+</script>
+</body>
+</html>

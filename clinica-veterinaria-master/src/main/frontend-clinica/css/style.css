@@ -1,0 +1,1022 @@
+/* Variáveis de Cores (Opcional, mas útil) */
+:root {
+    --primary-color: rgb(127, 33, 235); /* Roxo vibrante solicitado */
+    --secondary-color: rgb(100, 26, 185); /* Uma variação mais escura para contraste */
+    --text-color: #333;
+    --light-bg: #f8f8f8;
+    --white: #ffffff;
+    --gray-light: #e0e0e0;
+    --border-color: #ddd;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --info-color: #17a2b8;
+    --dark-purple: rgb(70, 18, 128); /* Definido para hover do btn-login */
+}
+
+/* Reset Básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte mais moderna */
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--light-bg);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- NOVO/AJUSTADO: Header e Navegação para o Dashboard --- */
+/* Target the 'header' and 'nav' elements directly as used in admin-dashboard.html */
+header {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 15px 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+header nav { /* Target the nav inside the header */
+    display: flex;
+    justify-content: space-between; /* Empurra os itens para as extremidades */
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header nav h1 { /* Estilo para o título "Clínica Pet" */
+    margin: 0;
+    font-size: 26px;
+    font-weight: bold;
+    color: var(--white);
+}
+
+header nav ul { /* Estilo para a lista de itens (mensagem de boas-vindas e botão Sair) */
+    list-style: none;
+    display: flex;
+    align-items: center; /* Alinha verticalmente */
+    margin: 0;
+    padding: 0;
+    gap: 20px; /* Espaçamento entre os itens da lista */
+}
+
+/* Estilo para a mensagem de boas-vindas */
+#welcomeMessage {
+    color: var(--white);
+    font-weight: 500;
+}
+
+/* Removidas as regras .navbar .logo, .navbar .nav-links, etc., pois não são usadas no admin-dashboard.html */
+/* Se precisar de um navbar diferente para outras páginas, considere criar um CSS separado ou ajustar a estrutura HTML */
+
+/* --- Botões Gerais (mantidos do seu CSS) --- */
+.btn-primary {
+    background-color: var(--secondary-color);
+    color: var(--white);
+    padding: 15px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary {
+    background-color: var(--gray-light);
+    color: var(--text-color);
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.btn-secondary:hover {
+    background-color: #c0c0c0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* --- NOVO: Estilo para o botão de Logout --- */
+.btn-logout {
+    background-color: #e57373; /* Um vermelho suave para o logout */
+    color: var(--white);
+    padding: 8px 15px; /* Botão um pouco menor */
+    font-size: 0.9em;
+    border-radius: 8px;
+    text-decoration: none; /* Remover underline se for link */
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+    box-shadow: none; /* Sem sombra para o header */
+}
+
+.btn-logout:hover {
+    background-color: var(--danger-color); /* Vermelho mais forte no hover */
+}
+
+/* --- Restante do seu CSS (mantido) --- */
+/* Seções Gerais */
+section {
+    padding: 80px 0; /* Mais espaçamento */
+    text-align: center;
+}
+
+section h2 {
+    font-size: 38px; /* Aumentado */
+    margin-bottom: 25px;
+    color: var(--primary-color);
+    position: relative;
+    padding-bottom: 10px; /* Espaço para o underline */
+}
+
+section h2::after { /* Underline sutil para títulos */
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--secondary-color);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+/* Hero Section */
+#hero {
+    background: linear-gradient(rgba(127, 33, 235, 0.75), rgba(100, 26, 185, 0.75)), url('../assets/images/hero-bg.jpg') no-repeat center center/cover;
+    color: var(--white);
+    padding: 120px 0; /* Mais padding */
+}
+
+#hero h1 {
+    font-size: 52px; /* Aumentado */
+    margin-bottom: 20px;
+}
+
+#hero p {
+    font-size: 22px;
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* About Section */
+#sobre-nos {
+    background-color: var(--white);
+    padding: 80px 0;
+}
+
+.about-content {
+    max-width: 850px;
+    margin: 0 auto;
+    text-align: left;
+    font-size: 17px; /* Levemente maior */
+}
+
+.about-content p {
+    margin-bottom: 20px;
+}
+
+/* Services Highlight / Cards */
+.services-highlight-section, .news-tips-section {
+    background-color: var(--light-bg);
+}
+
+.service-cards, .blog-cards, .service-cards-full {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px; /* Mais espaçamento */
+    margin-top: 50px;
+}
+
+.card {
+    background-color: var(--white);
+    border-radius: 12px; /* Mais arredondado */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08); /* Sombra mais proeminente e suave */
+    padding: 30px; /* Mais padding */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none; /* Remover borda padrão se existir */
+}
+
+.card:hover {
+    transform: translateY(-8px); /* Efeito de levantar no hover */
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.card img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.card h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.card p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Specialties Section */
+.specialties-section {
+    background-color: var(--white);
+}
+
+.specialty-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Min-width um pouco maior */
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.specialty-item {
+    background-color: var(--light-bg);
+    border-radius: 10px; /* Mais arredondado */
+    padding: 25px; /* Mais padding */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 180px; /* Altura mínima para uniformidade */
+}
+
+.specialty-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.specialty-item .icon {
+    font-size: 50px; /* Ícone maior */
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.specialty-item h3 {
+    font-size: 19px;
+    color: var(--text-color);
+    text-align: center;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--primary-color); /* Footer em roxo principal */
+    color: var(--white);
+    padding: 60px 0; /* Mais padding */
+    text-align: center;
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.1); /* Sombra superior */
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Colunas mais largas */
+    gap: 40px; /* Mais espaçamento */
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.footer-section h3 {
+    color: var(--gray-light);
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.footer-section p {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.footer-section .social-media a {
+    color: var(--white);
+    font-size: 28px; /* Ícones maiores */
+    margin-right: 20px;
+    transition: color 0.3s ease;
+}
+
+.footer-section .social-media a:hover {
+    color: var(--gray-light);
+}
+
+.map-container, .map-container-contact {
+    margin-top: 40px; /* Mais espaçamento */
+    margin-bottom: 40px;
+}
+
+.map-container h3, .map-container-contact h3 {
+    color: var(--white); /* Títulos do mapa em branco no footer */
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.map-container iframe, .map-container-contact iframe {
+    width: 100%;
+    height: 400px; /* Altura padrão para o mapa */
+    border-radius: 12px; /* Mais arredondado */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* Sombra para o mapa */
+    border: none; /* Remover borda padrão do iframe */
+}
+
+.copyright {
+    margin-top: 30px; /* Mais espaçamento */
+    padding-top: 25px;
+    border-top: 1px solid rgba(255,255,255,0.2); /* Borda mais visível */
+    font-size: 15px;
+}
+
+/* Login Page */
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 150px);
+    background-color: var(--light-bg);
+}
+
+.login-form {
+    background-color: var(--white);
+    padding: 50px; /* Mais padding */
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    max-width: 450px; /* Um pouco mais largo */
+    width: 100%;
+    text-align: left;
+}
+
+.login-form h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 40px;
+    font-size: 32px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group input[type="time"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px; /* Mais padding */
+    border: 1px solid var(--border-color);
+    border-radius: 8px; /* Mais arredondado */
+    font-size: 17px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(127, 33, 235, 0.2);
+    outline: none;
+}
+
+.login-form .btn-primary {
+    width: 100%;
+    padding: 15px; /* Aumentado */
+    font-size: 18px;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 16px;
+}
+
+.register-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+/* Dashboard Layout (do seu HTML de dashboard) */
+.dashboard-layout { /* Pode ser usado para o body ou um wrapper */
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 280px; /* Levemente mais largo */
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 30px 20px; /* Mais padding */
+    box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+}
+
+.sidebar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-nav li {
+    margin-bottom: 18px; /* Mais espaçamento */
+}
+
+.sidebar-nav a {
+    color: var(--white);
+    text-decoration: none;
+    display: flex; /* Para alinhar ícone e texto */
+    align-items: center;
+    padding: 12px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 17px;
+}
+
+.sidebar-nav a:hover, .sidebar-nav a.active {
+    background-color: var(--secondary-color);
+    transform: translateX(5px); /* Pequeno movimento no hover */
+}
+
+.sidebar-nav a i {
+    margin-right: 12px;
+    font-size: 20px;
+}
+
+.dashboard-content {
+    flex-grow: 1;
+    padding: 40px; /* Mais padding */
+    background-color: var(--light-bg);
+}
+
+.dashboard-header { /* Este é para um header DENTRO do dashboard-content, se tiver */
+    background-color: var(--white);
+    padding: 30px; /* Mais padding */
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard-header h1 {
+    font-size: 32px;
+    color: var(--primary-color);
+    margin: 0; /* Remover margin padrão de h1 */
+}
+
+.dashboard-section {
+    background-color: var(--white);
+    padding: 30px; /* Mais padding interno */
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-bottom: 30px; /* Espaçamento entre as seções do dashboard */
+}
+
+.dashboard-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    font-size: 28px;
+    text-align: left; /* Alinhar à esquerda no dashboard */
+}
+
+.dashboard-section h2::after { /* Remover underline de h2 em seções internas, se quiser */
+    display: none;
+}
+
+.dashboard-links {
+    display: grid; /* Usar grid para melhor espaçamento e responsividade */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 280px é um bom tamanho mínimo para botões maiores */
+    gap: 20px; /* Espaçamento entre os botões */
+    margin-top: 20px; /* Espaço entre o título da seção e os links */
+}
+
+.dashboard-links .btn {
+    width: auto; /* Deixa o grid controlar a largura, remove a largura fixa */
+    margin: 0; /* Remove margem individual se já for controlado pelo gap */
+}
+
+
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+}
+
+.summary-card {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.summary-card:hover {
+    transform: translateY(-5px);
+}
+
+.summary-card h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.summary-card p {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.consultas-list, .pets-list, .vacinas-list {
+    display: grid;
+    gap: 20px;
+}
+
+.consulta-item, .pet-card-small, .vacina-item {
+    background-color: var(--light-bg);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+/* Meus Pets Page */
+.pets-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.pet-card {
+    background-color: var(--light-bg);
+    border: 1px solid var(--border-color);
+    padding: 25px;
+    border-radius: 10px;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.pet-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 12px;
+    font-size: 22px;
+}
+
+.pet-card p {
+    margin-bottom: 8px;
+}
+
+.pet-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+}
+
+.btn-small {
+    padding: 8px 15px;
+    font-size: 15px;
+    border-radius: 6px;
+}
+
+.btn-info {
+    background-color: var(--info-color);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.btn-info:hover {
+    background-color: #117a8b;
+}
+
+.btn-edit {
+    background-color: #ffc107;
+    color: #333;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.btn-edit:hover {
+    background-color: #e0a800;
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.btn-danger:hover {
+    background-color: #bd2130;
+}
+
+/* Detalhe Pet Page */
+.pet-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    text-align: left;
+    margin-bottom: 25px;
+    font-size: 17px;
+}
+
+/* Forms (Agendamento, Registrar Vacina, etc.) */
+.form-agendamento, .form-vacina, .form-relatorio {
+    background-color: var(--white);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    max-width: 650px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+/* Tabelas de Dados (Gerenciar Tipos de Vacina) */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    font-size: 16px;
+}
+
+.data-table th, .data-table td {
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    text-align: left;
+}
+
+.data-table th {
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-weight: bold;
+}
+
+.data-table tbody tr:nth-child(even) {
+    background-color: var(--light-bg);
+}
+
+/* Modais */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5); /* Fundo mais escuro */
+    padding-top: 80px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 40px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 700px;
+    border-radius: 15px;
+    position: relative;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.modal-content h2 {
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.close-button {
+    color: #888; /* Mais suave */
+    float: right;
+    font-size: 32px;
+    font-weight: bold;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--danger-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Responsividade Básica */
+@media (max-width: 992px) { /* Ajuste para tablets */
+    .container {
+        padding: 0 15px;
+    }
+    section {
+        padding: 60px 0;
+    }
+    section h2 {
+        font-size: 32px;
+    }
+    #hero h1 {
+        font-size: 42px;
+    }
+    #hero p {
+        font-size: 19px;
+    }
+    .service-cards, .blog-cards, .specialty-grid, .footer-content, .pets-cards-grid, .summary-cards {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+    }
+    .card, .specialty-item, .summary-card, .pet-card {
+        padding: 25px;
+    }
+    /* Removido .navbar .nav-links li, etc. pois não se aplica ao HTML atual do dashboard */
+    .dashboard-sidebar { /* Para dashboards em telas menores */
+        width: 200px;
+    }
+    .dashboard-content {
+        padding: 25px;
+    }
+    .dashboard-header h1 {
+        font-size: 26px;
+    }
+    .dashboard-section h2 {
+        font-size: 24px;
+    }
+    .login-form, .form-agendamento, .form-vacina, .form-relatorio {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 768px) { /* Ajuste para celulares */
+    header nav { /* Ajuste para o header em mobile */
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px; /* Espaçamento entre os itens empilhados */
+    }
+    header nav ul {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    nav ul li { /* Garante que os itens da lista do nav também sejam espaçados */
+        width: 100%; /* Cada item ocupa a largura total para empilhar */
+        text-align: left;
+    }
+    nav ul li a, .btn-logout {
+        width: 100%; /* Botões e links preenchem a largura no mobile */
+        text-align: left; /* Alinhar texto à esquerda */
+        padding: 10px 15px; /* Mais padding para botões no mobile */
+    }
+
+    #hero {
+        padding: 80px 0;
+    }
+    #hero h1 {
+        font-size: 36px;
+    }
+    #hero p {
+        font-size: 18px;
+    }
+    section {
+        padding: 40px 0;
+    }
+    section h2 {
+        font-size: 28px;
+    }
+    .service-cards, .blog-cards, .specialty-grid, .footer-content, .pets-cards-grid, .summary-cards {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .card, .specialty-item, .summary-card, .pet-card {
+        padding: 20px;
+    }
+    .footer-content {
+        text-align: center;
+    }
+    .footer-section {
+        margin-bottom: 20px;
+    }
+    .map-container iframe, .map-container-contact iframe {
+        height: 300px; /* Reduzir altura em mobile */
+    }
+    .dashboard-layout {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 20px 15px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .sidebar .logo {
+        margin-bottom: 20px;
+    }
+    .sidebar-nav ul {
+        display: flex; /* Links da sidebar em linha para mobile */
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .sidebar-nav li {
+        margin: 5px 10px;
+    }
+    .sidebar-nav a {
+        font-size: 15px;
+        padding: 8px 12px;
+        text-align: center;
+    }
+    .sidebar-nav a i {
+        margin-right: 5px;
+    }
+    .dashboard-content {
+        padding: 15px;
+    }
+    .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    .dashboard-header h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    .dashboard-section {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    .dashboard-section h2 {
+        font-size: 22px;
+    }
+    .login-form, .form-agendamento, .form-vacina, .form-relatorio {
+        padding: 25px;
+    }
+    .pet-info-grid {
+        grid-template-columns: 1fr;
+    }
+    .modal-content {
+        padding: 30px;
+        margin: 10% auto;
+    }
+    .modal-content h2 {
+        font-size: 26px;
+    }
+}
+
+/* WhatsApp Float Button */
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 30px; /* Ajustado */
+    right: 30px; /* Ajustado */
+    background-color: #25d366;
+    color: #FFF;
+    border-radius: 50%; /* Usar 50% para garantir círculo perfeito */
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra mais moderna */
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+}
+
+.whatsapp-float i {
+    margin-top: 0;
+    color: #FFF;
+}
+
+/* Notícias e Serviços - Ícones grandes */
+.icon-large {
+    font-size: 70px; /* Ícone ainda maior para seções de destaque */
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+/* Estilos para a nova página de Contato */
+.contact-section {
+    background-color: var(--white);
+    padding: 80px 0;
+    text-align: center;
+}
+
+.contact-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 38px;
+}
+
+.contact-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+    text-align: left;
+}
+
+.contact-item {
+    background-color: var(--light-bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.contact-item .icon {
+    font-size: 35px;
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.contact-item h3 {
+    font-size: 22px;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.contact-item p {
+    font-size: 16px;
+    margin: 0;
+}
+
+.contact-form-container {
+    background-color: var(--light-bg);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    max-width: 700px;
+    margin: 60px auto 0;
+    text-align: left;
+}
+
+.contact-form-container h3 {
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    font-size: 28px;
+    text-align: center;
+}
+
+.contact-form-container .form-group {
+    margin-bottom: 25px;
+}
+
+.contact-form-container .btn-primary {
+    width: 100%;
+    font-size: 18px;
+    padding: 14px;
+}

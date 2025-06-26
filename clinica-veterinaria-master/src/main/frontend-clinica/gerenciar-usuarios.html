@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciar Usuários - Clínica Pet</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Define a fonte Inter para todo o corpo, para consistência */
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    /* Estilos para o modal (mantidos os que você já tinha, mas com pequenos ajustes para garantir sobreposição do Tailwind) */
+    .modal {
+      display: none; /* Hidden by default - JS vai controlar */
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+      align-items: center;
+      justify-content: center;
+      padding: 1rem; /* Adicionado para evitar que o modal toque as bordas em telas pequenas */
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 3rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      position: relative;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    .close-button {
+      color: #aaa;
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 2.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .close-button:hover,
+    .close-button:focus {
+      color: #888;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="bg-purple-50 text-gray-800 antialiased min-h-screen flex flex-col">
+
+<header class="bg-purple-800 text-white p-4 shadow-lg rounded-b-xl">
+  <nav class="container mx-auto flex justify-between items-center px-4">
+    <a href="index.html" class="text-3xl sm:text-4xl font-extrabold tracking-tight hover:text-purple-200 transition-colors duration-300">Clínica Pet</a>
+
+    <ul class="flex items-center space-x-6">
+      <li>
+        <span id="welcomeMessage" class="text-lg font-medium text-purple-200"></span>
+      </li>
+      <li>
+        <a href="admin-dashboard.html" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full shadow-md transition-all duration-300 transform hover:scale-105">
+          <i class="fas fa-tachometer-alt mr-2"></i>Dashboard Admin
+        </a>
+      </li>
+      <li>
+        <button id="logoutBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full shadow-md transition-all duration-300 transform hover:scale-105">
+          Sair
+        </button>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<main class="flex-grow py-16 md:py-24 bg-purple-50">
+  <div class="container mx-auto px-4 max-w-5xl">
+    <h2 class="text-4xl md:text-5xl font-extrabold text-center text-purple-800 mb-8 leading-tight">Gerenciar Usuários</h2>
+    <p class="text-xl text-center text-gray-700 mb-12">Adicione, edite e visualize todos os usuários do sistema.</p>
+
+    <section id="gerenciar-usuarios-admin-section" class="bg-white p-8 rounded-xl shadow-lg mb-12">
+      <h3 class="text-3xl font-bold text-purple-700 mb-6 flex items-center">
+        <i class="fas fa-users-cog mr-3"></i>Controle de Usuários
+      </h3>
+      <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full shadow-md transition-all duration-300 transform hover:scale-105 mb-8 inline-flex items-center" id="addGenericUserBtn">
+        <i class="fas fa-user-plus mr-2"></i>Cadastrar Novo Usuário
+      </button>
+
+      <h4 class="text-2xl font-semibold text-gray-700 mb-4">Lista Completa de Usuários</h4>
+      <input type="text" id="userSearch" placeholder="Buscar usuário por nome, email ou perfil..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 mb-6 text-lg">
+      <div id="userList" class="bg-gray-50 p-6 rounded-lg border border-gray-200 min-h-[200px] space-y-4">
+        <p class="text-gray-600 text-lg text-center">Carregando usuários...</p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<div id="userModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button text-gray-500 hover:text-gray-700">×</span>
+    <h3 id="userModalTitle" class="text-3xl font-bold text-purple-800 mb-6 text-center"></h3>
+    <form id="userForm" class="space-y-5">
+      <input type="hidden" id="userIdHidden">
+      <div class="form-group">
+        <label for="userName" class="block text-gray-700 text-lg font-medium mb-2">Nome Completo:</label>
+        <input type="text" id="userName" name="nomeCompleto" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-lg">
+      </div>
+      <div class="form-group">
+        <label for="userEmail" class="block text-gray-700 text-lg font-medium mb-2">E-mail:</label>
+        <input type="email" id="userEmail" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-lg">
+      </div>
+      <div class="form-group">
+        <label for="userSenha" class="block text-gray-700 text-lg font-medium mb-2">Senha:</label>
+        <input type="password" id="userSenha" name="senha" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-lg">
+        <small class="text-gray-500 text-sm mt-1 block">Deixe em branco para não alterar a senha.</small>
+      </div>
+      <div class="form-group">
+        <label for="userRole" class="block text-gray-700 text-lg font-medium mb-2">Tipo de Usuário:</label>
+        <select id="userRole" name="role" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white text-lg">
+          <option value="cliente">Cliente</option>
+          <option value="veterinario">Veterinário</option>
+          <option value="secretario">Secretário</option>
+          <option value="admin">Administrador</option>
+        </select>
+      </div>
+
+      <div class="form-group" id="formGroupTelefone" style="display: none;">
+        <label for="userTelefone" class="block text-gray-700 text-lg font-medium mb-2">Telefone:</label>
+        <input type="text" id="userTelefone" name="telefone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-lg">
+      </div>
+      <div class="form-group" id="formGroupCpf" style="display: none;">
+        <label for="userCpf" class="block text-gray-700 text-lg font-medium mb-2">CPF:</label>
+        <input type="text" id="userCpf" name="cpf" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-lg">
+      </div>
+      <div class="form-group" id="formGroupCrmv" style="display: none;">
+        <label for="userCrmv" class="block text-gray-700 text-lg font-medium mb-2">CRMV:</label>
+        <input type="text" id="userCrmv" name="crmv" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-lg">
+      </div>
+      <div class="form-group" id="formGroupEspecialidade" style="display: none;">
+        <label for="userEspecialidade" class="block text-gray-700 text-lg font-medium mb-2">Especialidade:</label>
+        <input type="text" id="userEspecialidade" name="especialidade" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-lg">
+      </div>
+      <div class="form-group" id="formGroupEndereco" style="display: none;">
+        <label for="userEndereco" class="block text-gray-700 text-lg font-medium mb-2">Endereço:</label>
+        <input type="text" id="userEndereco" name="endereco" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-lg">
+      </div>
+
+      <button type="submit" id="userSubmitBtn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full shadow-md transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 text-lg"></button>
+      <div id="userMessage" class="message text-center mt-4 text-red-600 font-medium text-base"></div>
+    </form>
+  </div>
+</div>
+
+<footer class="footer bg-gray-900 text-white py-12 md:py-16 mt-auto rounded-t-xl shadow-inner">
+  <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+    <div class="footer-section contact-info">
+      <h3 class="text-2xl font-semibold text-purple-300 mb-4">Contato</h3>
+      <p class="text-gray-300 mb-2">Telefone: <a href="tel:+551186976403" class="hover:underline">(11) 8697-6403</a></p>
+      <p class="text-gray-300">Email: <a href="mailto:contato@clinica-pet.com" class="hover:underline">contato@clinica-pet.com</a></p>
+    </div>
+    <div class="footer-section address-info">
+      <h3 class="text-2xl font-semibold text-purple-300 mb-4">Endereço</h3>
+      <p class="text-gray-300">Av. dos Três Poderes, 375</p>
+      <p class="text-gray-300">Residencial Central Parque, Salto - SP</p>
+      <p class="text-gray-300">CEP 13325-047</p>
+    </div>
+    <div class="footer-section opening-hours">
+      <h3 class="text-2xl font-semibold text-purple-300 mb-4">Horário de Atendimento</h3>
+      <p class="text-gray-300">Segunda a Sexta: 08:00 - 18:00</p>
+      <p class="text-gray-300">Sábados: Apenas com horário agendado</p>
+    </div>
+    <div class="footer-section social-media">
+      <h3 class="text-2xl font-semibold text-purple-300 mb-4">Siga-nos</h3>
+      <a href="https://www.instagram.com/suaclinicapet" target="_blank" class="text-gray-300 hover:text-purple-400 transition-colors duration-300 text-lg flex items-center">
+        <i class="fab fa-instagram mr-2 text-2xl"></i> Instagram
+      </a>
+    </div>
+  </div>
+
+  <div class="map-container container mx-auto px-4 mt-12">
+    <h3 class="text-2xl font-semibold text-purple-300 mb-4 text-center">Localização</h3>
+    <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3667.5552438777454!2d-47.30521532552402!3d-23.186427279059274!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cf53972da3336f%3A0xceb3df208b4b53a4!2sInstituto%20Federal%20de%20Educa%C3%A7%C3%A3o%2C%20Ci%C3%AAncia%20e%20Tecnologia%20de%20S%C3%A3o%20Paulo%2C%20Campus%20Salto!5e0!3m2!1spt-BR!2sbr!4v1750912675825!5m2!1spt-BR!2sbr"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+
+  <div class="copyright text-center text-gray-500 text-sm mt-8">
+    <p>© 2025 Clínica Pet. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<a href="https://wa.me/551186976403" class="whatsapp-float fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg text-3xl flex items-center justify-center transition-all duration-300 transform hover:scale-110 z-50" target="_blank">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<script type="module" src="./js/auth.js"></script>
+<script type="module" src="./js/common.js"></script> <script type="module" src="./js/api.js"></script> <script type="module" src="./js/gerenciarUsuarios.js"></script>
+</body>
+</html>

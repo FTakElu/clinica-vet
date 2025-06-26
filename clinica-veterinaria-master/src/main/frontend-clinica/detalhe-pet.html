@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Pet - Clínica Pet</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<header>
+    <nav>
+        <h1>Clínica Pet</h1>
+        <ul>
+            <li><a href="#" id="welcomeMessage"></a></li>
+            <li><a href="cliente-dashboard.html">Dashboard</a></li>
+            <li><a href="meus-pets.html">Meus Pets</a></li>
+            <li><a href="#" id="logoutBtn">Sair</a></li>
+        </ul>
+    </nav>
+</header>
+<div class="container">
+    <h2>Detalhes do Pet: <span id="petNameDisplay"></span></h2>
+
+    <section id="pet-details-section" class="dashboard-section">
+        <h3>Informações do Pet</h3>
+        <div id="petDetails">
+            <p><strong>Nome:</strong> <span id="petNome"></span></p>
+            <p><strong>Espécie:</strong> <span id="petEspecie"></span></p>
+            <p><strong>Raça:</strong> <span id="petRaca"></span></p>
+            <p><strong>Data de Nascimento:</strong> <span id="petDataNascimento"></span></p>
+            <p><strong>Sexo:</strong> <span id="petSexo"></span></p>
+            <p><strong>Dono:</strong> <span id="petDono"></span></p>
+        </div>
+    </section>
+
+    <section id="vacinas-pet-section" class="dashboard-section">
+        <h3>Histórico de Vacinas</h3>
+        <div id="vacinaList" class="data-list">
+            <p>Nenhuma vacina registrada para este pet.</p>
+        </div>
+    </section>
+
+</div>
+<script type="module" src="./js/auth.js"></script>
+<script type="module" src="./js/script.js"></script>
+<script type="module" src="./js/detalhePet.js"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultas - PetCare</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1>Consultas da Clínica</h1>
+        <nav>
+            <ul>
+                <li><a href="veterinario-dashboard.html">Dashboard</a></li>
+                <li><a href="consultas.html" class="active">Minhas Consultas</a></li>
+                <li><a href="relatorio-consulta.html">Relatórios</a></li>
+                <li><a href="#" id="logout-button">Sair</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <section id="consultas-list-filters">
+        <h2>Filtrar Consultas</h2>
+        <form id="filterConsultasForm" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+            <div class="form-group">
+                <label for="filter-veterinario">Veterinário:</label>
+                <select id="filter-veterinario" name="veterinario">
+                    <option value="">Todos</option>
+                    <option value="1">Dr. Pedro Almeida</option>
+                    <option value="2">Dra. Ana Costa</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="filter-status">Status:</label>
+                <select id="filter-status" name="status">
+                    <option value="">Todos</option>
+                    <option value="scheduled">Agendado</option>
+                    <option value="checked-in">Em Atendimento</option>
+                    <option value="completed">Concluído</option>
+                    <option value="cancelled">Cancelado</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="filter-data-inicio">De:</label>
+                <input type="date" id="filter-data-inicio" name="dataInicio">
+            </div>
+            <div class="form-group">
+                <label for="filter-data-fim">Até:</label>
+                <input type="date" id="filter-data-fim" name="dataFim">
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1; display: flex; justify-content: center;">
+                <button type="submit" class="button">Aplicar Filtros</button>
+            </div>
+        </form>
+    </section>
+
+    <section id="consultas-list">
+        <h2>Lista de Consultas</h2>
+        <p>Clique em uma consulta para ver os detalhes.</p>
+        <table>
+            <thead>
+            <tr>
+                <th>Data</th>
+                <th>Hora</th>
+                <th>Pet</th>
+                <th>Dono</th>
+                <th>Veterinário</th>
+                <th>Serviço</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody id="consultas-table-body">
+            <tr>
+                <td>25/06/2025</td>
+                <td>10:00</td>
+                <td>Rex</td>
+                <td>João Silva</td>
+                <td>Dr. Pedro Almeida</td>
+                <td>Consulta Geral</td>
+                <td><span class="status-badge scheduled">Agendado</span></td>
+                <td>
+                    <div class="button-group">
+                        <button class="button info button-small">Ver</button>
+                        <button class="button success button-small">Iniciar</button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>24/06/2025</td>
+                <td>15:30</td>
+                <td>Mimi</td>
+                <td>Maria Oliveira</td>
+                <td>Dra. Ana Costa</td>
+                <td>Vacinação</td>
+                <td><span class="status-badge completed">Concluído</span></td>
+                <td>
+                    <div class="button-group">
+                        <button class="button info button-small">Ver</button>
+                        <button class="button secondary button-small">Relatório</button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2025 Clínica Veterinária PetCare. Todos os direitos reservados.</p>
+        <p>Entre em contato: contato@petcare.com.br</p>
+    </div>
+</footer>
+
+<script src="js/common.js"></script>
+<script src="js/relatorioConsulta.js"></script>
+</body>
+</html>
